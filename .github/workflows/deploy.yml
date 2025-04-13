@@ -1,0 +1,23 @@
+name: Deploy ke Rumahweb via FTP
+
+on:
+  push:
+    branches:
+      - main  # ganti kalau branch kamu bukan "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/lumuks.tech/
+          dangerous-clean-slate: false
